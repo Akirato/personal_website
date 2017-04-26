@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load bootstrap3 %}
+        {% load fontawesome %}
+        {# Load CSS and JavaScript #}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        {% fontawesome_stylesheet %}
+        {# Display django.contrib.messages as Bootstrap alerts #}
+        {% bootstrap_messages %}
+        {% load static %}
+    </head>
+    <head>
+        <title>Nurendra Choudhary | Akirato</title>
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            @media screen and (min-width:768px){
+            .navbar-brand-centered {
+            position: absolute;
+            left: 50%;
+            display: block;
+            width: 160px;
+            text-align: center;
+            background-color: #eee;
+            }
+            .navbar>.container .navbar-brand-centered, 
+            .navbar>.container-fluid .navbar-brand-centered {
+            margin-left: -80px;
+            }
+            /*
+            * Based on Cover by https://twitter.com/mdo"  @mdo
+            * added cover image and background color to match (green)
+            *
+            * Globals
+            */
+            /* Links */
+            a,
+            a:focus,
+            a:hover {
+            color: #fff;
+            }
+            /* Custom default button */
+            .btn-default,
+            .btn-default:hover,
+            .btn-default:focus {
+            color: #333;
+            text-shadow: none; /* Prevent inheritence from `body` */
+            background-color: #fff;
+            border: 1px solid #fff;
+            }
+            /*
+            * Base structure
+            */
+            html,
+            body {
+            /*css for full size background image*/
+            background: url({% static "myprofile/images/background.jpg" %}) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 100%;
+            background-color: #060;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(0,0,0,.5);
+            }
+            .panel-default > .panel-heading-custom{
+            background-image: none;
+            background-color: #222222;
+            color: #ffffff;
+            }
+          .panel-body {
+            background: #002365;}
+        </style>
+        <!-- Include the library. -->
+<script
+  src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js">
+</script> 
+ 
+<!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
+<link
+  rel="stylesheet"
+  href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"
+/>
+ 
+<!-- Prepare a container for your calendar. --> 
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-brand-centered">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand navbar-brand-centered" style="background: none; font-weight: bold; font-family: 'Bree Serif"><a href="{% url 'myprofile:profile' %}" style="color: white;">Main Profile</a></div>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-brand-centered">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'myprofile:research' %}" style="font-weight: bold; font-family: 'Bree Serif', serif;">Research Profile</a></li>
+                    </ul>
+                    
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-6">
+    
+  <div class="panel panel-default">
+    <div class="panel-heading panel-heading-custom" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-family: 'Bree Serif', serif;">
+          Development Projects
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <ul class='list-group'>
+          {% for project in projects%}
+          <li class='list-group-item' style="background: none;">{{project.name}} 
+          {% if project.link != None%}
+          <a href="{{project.link}}">{% fontawesome_icon 'external-link' color='white'%}</a> 
+          {% endif %}<br>
+          {% if project.advisor != None%}
+          Advisor: {{project.advisor}}, 
+          {% endif %}
+          Duration: {{project.start_date}} to {{project.end_date}}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading panel-heading-custom" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="font-family: 'Bree Serif', serif;">
+          Online Profiles
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <ul class='list-group'>
+          {% for profile in profiles %}
+          <li class='list-group-item' style="background: none; font-weight: bold;">{{profile.profile_name}} 
+          {% if profile.link != None %}
+          <a href="{{profile.link}}">{% fontawesome_icon 'external-link' color='white'%}</a> 
+          {% endif %}
+          </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div></div></div>
+</div>
+{% if main_profile.github_nick != None %}
+<div class="calendar" style="background: none;">
+    <!-- Loading stuff -->
+    Loading the data ....
+</div>
+<script>
+    GitHubCalendar(".calendar", "{{main_profile.github_nick}}");
+</script> 
+
+{% endif %}
+
+<footer class="navbar-fixed-bottom navbar-inverse">
+<!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Developed by: <a href="https://www.nurendra.me"> Nurendra Choudhary </a>
+
+        </div>
+    </div>
+    <!--/.Copyright-->
+</footer>
+
+</body>
+</html>
