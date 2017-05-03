@@ -1,0 +1,5 @@
+ultimate
+*.pyc
+staticfiles
+.env
+
